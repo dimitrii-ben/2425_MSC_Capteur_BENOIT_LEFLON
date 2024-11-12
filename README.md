@@ -17,12 +17,20 @@
 
      ***Half-duplex :** La communication se fait dans un seul sens à la fois. Cela signifie qu’à un moment donné, le bus I²C peut soit émettre, soit recevoir, mais pas les deux simultanément.*
 
+
    * **Sur combien de bits est « classiquement » codée l’adresse d’un périphérique sur un bus I2C?**
+     *Classiquement, l'adresse d'un périphérique sur un bus I²C est codée sur 7 bits*
      
    * **Combien de périphériques peuvent être alors connectés au même bus?**
+     *Avec une adresse de 7 bits, le bus peut théoriquement connecter jusqu’à 128 périphériques (2^7 = 128)*
      
    * **Quelle est la vitesse de transmission possible des octets sur un bus I2C?**
-     
+
+     ***Standard Mode :* jusqu’à 100 kbit/s
+     ***Fast Mode :* jusqu’à 400 kbit/s*
+     ***Fast Mode Plus :* jusqu’à 1 Mbit/s*
+     ***High-Speed Mode :* jusqu’à 3,4 Mbit/s*
+     ***Ultra-Fast Mode (introduit dans les versions récentes) :* jusqu’à 5 Mbit/s*
 
  
  
