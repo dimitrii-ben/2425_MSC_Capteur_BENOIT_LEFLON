@@ -4,9 +4,13 @@
  ### 1.4 Premiers pas avec le bus I2C
    * **Quand a été inventé le bus I2C et quelle est sa version actuelle?**
      *Le bus I²C (Inter-Integrated Circuit) a été inventé par Philips (aujourd'hui NXP Semiconductors) en 1982. La dernière version du standard I²C est la version 7.0, publiée en 2021.*
+
+     
    * **Combien de lignes nécessite le bus I2C? Quelle est leur fonction?**
      ***SCL (Serial Clock Line) :** Cette ligne transporte le signal d'horloge généré par le maître pour synchroniser la communication.*
      ***SDA (Serial Data Line) :** Cette ligne transporte les données entre le maître et les périphériques esclaves.*
+
+     
    * **Le bus I2C est un bus série, synchrone, bidirectionnel et half-duplex. Donner la définition des ces 4 éléments.**
      
      ***Série :** Les données sont transmises bit par bit sur une seule ligne de données (SDA), ce qui limite le nombre de fils nécessaires par rapport aux transmissions parallèles.*
@@ -23,14 +27,19 @@
      
    * **Combien de périphériques peuvent être alors connectés au même bus?**
      *Avec une adresse de 7 bits, le bus peut théoriquement connecter jusqu’à 128 périphériques (2^7 = 128)*
+
      
    * **Quelle est la vitesse de transmission possible des octets sur un bus I2C?**
 
-     ***Standard Mode :* jusqu’à 100 kbit/s
-     ***Fast Mode :* jusqu’à 400 kbit/s*
-     ***Fast Mode Plus :* jusqu’à 1 Mbit/s*
-     ***High-Speed Mode :* jusqu’à 3,4 Mbit/s*
-     ***Ultra-Fast Mode (introduit dans les versions récentes) :* jusqu’à 5 Mbit/s*
+     ***Standard Mode :** jusqu’à 100 kbit/s
+
+     ***Fast Mode :** jusqu’à 400 kbit/s*
+
+     ***Fast Mode Plus :** jusqu’à 1 Mbit/s*
+
+     ***High-Speed Mode :** jusqu’à 3,4 Mbit/s*
+     
+     ***Ultra-Fast Mode (introduit dans les versions récentes) :** jusqu’à 5 Mbit/s*
 
  
  
