@@ -1,6 +1,6 @@
 # 2425_MSC_Capteur_BENOIT_LEFLON
 
- 1 Prise en main de la carte STM32 et des capteurs
+ ##1 Prise en main de la carte STM32 et des capteurs
 
   1.3 Prise en main de la carte (allumer deux LEDS)
 
