@@ -12,7 +12,7 @@ uint8_t prompt[15] = "\nSTM32G431 >> ";
 uint8_t message[50];
 
 void setup() {
-	strcpy((char*)message, "MSC 2024 - Capteurs\r");
+	strcpy((char*)message, "MSC 2024 - Capteurs\r\n");
 	HAL_UART_Transmit(&hlpuart1, prompt, strlen((char*)prompt), HAL_MAX_DELAY);
 	HAL_UART_Transmit(&hlpuart1, message, strlen((char*)message), HAL_MAX_DELAY);
 }
