@@ -7,7 +7,11 @@
 
 #include "../Inc/tools.h"
 
+//global variable from main.c
+extern I2C_HandleTypeDef hi2c1;
 extern UART_HandleTypeDef hlpuart1;
+
+//global variable
 uint8_t prompt[15] = "\nSTM32G431 >> ";
 uint8_t message[50];
 
@@ -26,10 +30,10 @@ void loop(){
 	HAL_UART_Transmit(&hlpuart1, message, strlen((char*)message), HAL_MAX_DELAY);
 }
 /**
-  * @brief Make PA5 LED blink.
-  * @param delay : current delay
-  * @retval HAL status
-  */
+ * @brief Make PA5 LED blink.
+ * @param delay : current delay
+ * @retval HAL status
+ */
 void test_LEDs(int delay){
 	for(;;){
 		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
@@ -37,3 +41,33 @@ void test_LEDs(int delay){
 	}
 
 }
+void verifySensor(){
+	for (uint8_t i=0x00;i<0xFF;i++){
+
+		if(HAL_I2C_IsDeviceReady(&hi2c1,i,3,100)== HAL_OK){
+			printf("[0x%02X|%d]: Peripheral avaible,avaible at [0x%02X]\r\n",i,(int)i,((uint16_t)i)>>1);
+		}else{
+			printf("verifySensor error");
+			Error_Handler();
+		}
+
+	}
+}
+/**
+ * @brief Verify the identity of the MPU-950 sensor
+ * @retval uint8_t is_sensor : if 1 the sensor is detected 0 otherwise
+ */
+uint8_t checkMPU9250Identity() {
+	uint8_t who_am_i = 0; // Variable pour stocker la valeur lue
+	// Reading WHO_AM_I register
+	if (HAL_I2C_Mem_Read(&hi2c1, MPU9250_ADDRESS << 1, WHO_AM_I_REGISTER, I2C_MEMADD_SIZE_8BIT, &who_am_i, 1, HAL_MAX_DELAY) == HAL_OK) {
+		if (who_am_i == EXPECTED_WHO_AM_I) {
+			printf("MPU-950 sensor, detected\r\n");
+			return 1; // Sensor detected
+		}
+	}
+	printf("MPU-950 sensor, not detected\r\n");
+	return 0; // Sensor not detected
+}
+
+

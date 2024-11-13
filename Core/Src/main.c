@@ -60,15 +60,7 @@ static void MX_LPUART1_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void verifySensor(){
-	for (uint8_t i=0x00;i<0xFF;i++){
 
-		if(HAL_I2C_IsDeviceReady(&hi2c1,i,3,100)== HAL_OK){
-			printf("[0x%02X|%d]: Peripheral avaible,avaible at [0x%02X]\r\n",i,(int)i,((uint16_t)i)>>1);
-		}
-
-	}
-}
 /* USER CODE END 0 */
 
 /**
@@ -104,6 +96,7 @@ int main(void)
 	MX_LPUART1_UART_Init();
 	/* USER CODE BEGIN 2 */
 	setup();
+	checkMPU9250Identity();
 	verifySensor();
 	/* USER CODE END 2 */
 
