@@ -1,17 +1,49 @@
-# 2425_MSC_Capteur_BENOIT_LEFLON
+# 1 Prise en main de la carte STM32 et des capteurs
+ ### 1.3 Prise en main de la carte (allumer deux LEDS)
+   
+ ### 1.4 Premiers pas avec le bus I2C
+   * **Quand a été inventé le bus I2C et quelle est sa version actuelle?**
+     *Le bus I²C (Inter-Integrated Circuit) a été inventé par Philips (aujourd'hui NXP Semiconductors) en 1982. La dernière version du standard I²C est la version 7.0, publiée en 2021.*
 
- 1 Prise en main de la carte STM32 et des capteurs
+     
+   * **Combien de lignes nécessite le bus I2C? Quelle est leur fonction?**
+     ***SCL (Serial Clock Line) :** Cette ligne transporte le signal d'horloge généré par le maître pour synchroniser la communication.*
+     ***SDA (Serial Data Line) :** Cette ligne transporte les données entre le maître et les périphériques esclaves.*
 
-  1.3 Prise en main de la carte (allumer deux LEDS)
+     
+   * **Le bus I2C est un bus série, synchrone, bidirectionnel et half-duplex. Donner la définition des ces 4 éléments.**
+     
+     ***Série :** Les données sont transmises bit par bit sur une seule ligne de données (SDA), ce qui limite le nombre de fils nécessaires par rapport aux transmissions parallèles.*
+     
+     ***Synchrone :** La transmission est synchronisée par un signal d'horloge (SCL) fourni par le maître, permettant une communication coordonnée entre les périphériques.*
 
-  1.4 Premiers pas avec le bus I2C
+     ***Bidirectionnel :** Le bus permet aux données de circuler dans les deux sens, du maître vers l’esclave et inversement, selon les besoins.*
 
-  *Quand a été inventé le bus I2C et quelle est sa version actuelle?
- Combien de lignes nécessite le bus I2C? Quelle est leur fonction?
- Le bus I2C est un bus série, synchrone, bidirectionnel et half-duplex. Donner la définition des ces 4
- éléments.
- Sur combien de bits est « classiquement » codée l’adresse d’un périphérique sur un bus I2C? Combien
- de périphériques peuvent être alors connectés au même bus?
- Quelle est la vitesse de transmission possible des octets sur un bus I2C?*
+     ***Half-duplex :** La communication se fait dans un seul sens à la fois. Cela signifie qu’à un moment donné, le bus I²C peut soit émettre, soit recevoir, mais pas les deux simultanément.*
+
+
+   * **Sur combien de bits est « classiquement » codée l’adresse d’un périphérique sur un bus I2C?**
+     *Classiquement, l'adresse d'un périphérique sur un bus I²C est codée sur 7 bits*
+     
+   * **Combien de périphériques peuvent être alors connectés au même bus?**
+     *Avec une adresse de 7 bits, le bus peut théoriquement connecter jusqu’à 128 périphériques (2^7 = 128)*
+
+     
+   * **Quelle est la vitesse de transmission possible des octets sur un bus I2C?**
+
+     ***Standard Mode :** jusqu’à 100 kbit/s
+
+     ***Fast Mode :** jusqu’à 400 kbit/s*
+
+     ***Fast Mode Plus :** jusqu’à 1 Mbit/s*
+
+     ***High-Speed Mode :** jusqu’à 3,4 Mbit/s*
+     
+     ***Ultra-Fast Mode (introduit dans les versions récentes) :** jusqu’à 5 Mbit/s*
+
+ 
+ 
+ 
+ 
 
  
