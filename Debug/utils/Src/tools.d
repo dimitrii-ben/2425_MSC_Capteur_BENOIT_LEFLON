@@ -1,4 +1,4 @@
-Core/Src/fonctions.o: ../Core/Src/fonctions.c ../Core/Inc/fonctions.h \
+utils/Src/tools.o: ../utils/Src/tools.c ../utils/Src/../Inc/tools.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -28,7 +28,7 @@ Core/Src/fonctions.o: ../Core/Src/fonctions.c ../Core/Inc/fonctions.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
-../Core/Inc/fonctions.h:
+../utils/Src/../Inc/tools.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h:

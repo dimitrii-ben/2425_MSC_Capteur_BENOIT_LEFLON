@@ -5,8 +5,8 @@
  *      Author: Nicolas SIMOND
  */
 
-#ifndef INC_FONCTIONS_H_
-#define INC_FONCTIONS_H_
+#ifndef INC_TOOLS_H_
+#define INC_TOOLS_H_
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -15,6 +15,6 @@
 
 void setup();
 void loop();
+void test_LEDs(int);
 
-
-#endif /* INC_FONCTIONS_H_ */
+#endif /* INC_TOOLS_H_ */
