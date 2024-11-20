@@ -1,5 +1,5 @@
-../utils/Src/tools.c:18:6:setup	1
-../utils/Src/tools.c:24:6:loop	1
-../utils/Src/tools.c:37:6:test_LEDs	1
-../utils/Src/tools.c:44:6:verifySensor	3
-../utils/Src/tools.c:57:9:checkMPU9250Identity	3
+../utils/Src/tools.c:19:6:setup	1
+../utils/Src/tools.c:26:6:loop	1
+../utils/Src/tools.c:41:6:test_LEDs	1
+../utils/Src/tools.c:54:6:verifySensor	4
+../utils/Src/tools.c:73:9:checkMPU9250Identity	3

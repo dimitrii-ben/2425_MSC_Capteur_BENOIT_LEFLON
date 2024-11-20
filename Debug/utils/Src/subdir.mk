@@ -5,12 +5,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../utils/Src/functions.c \
 ../utils/Src/tools.c 
 
 OBJS += \
+./utils/Src/functions.o \
 ./utils/Src/tools.o 
 
 C_DEPS += \
+./utils/Src/functions.d \
 ./utils/Src/tools.d 
 
 
@@ -21,7 +24,7 @@ utils/Src/%.o utils/Src/%.su utils/Src/%.cyclo: ../utils/Src/%.c utils/Src/subdi
 clean: clean-utils-2f-Src
 
 clean-utils-2f-Src:
-	-$(RM) ./utils/Src/tools.cyclo ./utils/Src/tools.d ./utils/Src/tools.o ./utils/Src/tools.su
+	-$(RM) ./utils/Src/functions.cyclo ./utils/Src/functions.d ./utils/Src/functions.o ./utils/Src/functions.su ./utils/Src/tools.cyclo ./utils/Src/tools.d ./utils/Src/tools.o ./utils/Src/tools.su
 
 .PHONY: clean-utils-2f-Src
 

@@ -1,0 +1,7 @@
+../utils/Src/functions.c:24:6:I2C_Write_Register	2
+../utils/Src/functions.c:45:6:I2C_Read_Register	3
+../utils/Src/functions.c:67:6:hardwareReset	2
+../utils/Src/functions.c:80:6:setDefaultValue	1
+../utils/Src/functions.c:91:6:clockSelection	1
+../utils/Src/functions.c:101:6:InitSensors	1
+../utils/Src/functions.c:114:6:TempMeasure	1

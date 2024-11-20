@@ -1,0 +1,7 @@
+../utils/Src/functions.c:24:6:I2C_Write_Register	32	static
+../utils/Src/functions.c:45:6:I2C_Read_Register	24	static
+../utils/Src/functions.c:67:6:hardwareReset	24	static
+../utils/Src/functions.c:80:6:setDefaultValue	8	static
+../utils/Src/functions.c:91:6:clockSelection	8	static
+../utils/Src/functions.c:101:6:InitSensors	8	static
+../utils/Src/functions.c:114:6:TempMeasure	8	static
