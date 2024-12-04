@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <math.h>
 #include "stm32g4xx_hal.h"
 #include "stm32g4xx_hal_gpio.h"
 #include "stm32g4xx_hal_i2c.h"

@@ -9,5 +9,6 @@
 ../utils/Src/functions.c:151:7:tempCalibration	24	static
 ../utils/Src/functions.c:157:7:TempMeasure	16	static
 ../utils/Src/functions.c:168:7:combineLH	16	static
-../utils/Src/functions.c:172:8:calibrateAcc	16	static
-../utils/Src/functions.c:179:6:AccMeasure	72	static
+../utils/Src/functions.c:177:8:calibrateAcc	16	static
+../utils/Src/functions.c:184:6:AccMeasure	72	static
+../utils/Src/functions.c:215:7:getAccNorm	24	static

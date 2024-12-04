@@ -169,6 +169,11 @@ short combineLH(int8_t regLowByte,int8_t regHighByte){
 	return (int16_t)((regHighByte << 8) | regLowByte);
 
 }
+/**@brief Calibrate the I2C accelerometer received value
+ * @param accValue : the acceleration value (raw)
+ * @param FS : Current full scale can take value in : [2,4,8,16]
+ * @retval None
+ */
 double calibrateAcc(short accValue,short FS){
 	return ((double)accValue/(double)GET_SENS(FS));
 }
@@ -197,8 +202,16 @@ void AccMeasure(uint8_t FS,double* accel_table){
 	x= calibrateAcc(raw_x,FS);
 	y= calibrateAcc(raw_y, FS);
 	z= calibrateAcc(raw_z, FS);
+
+	accel_table[0]=x;
+	accel_table[1]=y;
+	accel_table[2]=z;
 	//printf("[ACCEL_XOUT_L,ACCEL_XOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]\r\n",L_x,L_y,L_z,H_x,H_y,H_z);
 	//printf("raw_x=%d|-|raw_y=%d|-|raw_z=%d\r\n",raw_x,raw_y,raw_z);
 	printf("acc_X=%f|-|acc_Y=%f|-|acc_Z=%f\r\n",x,y,z);
 
+}
+
+float getAccNorm(double* accel_table){
+	return sqrt(pow(accel_table[0],2)+pow(accel_table[1],2)+pow(accel_table[2],2));
 }

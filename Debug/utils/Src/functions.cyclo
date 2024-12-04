@@ -9,5 +9,6 @@
 ../utils/Src/functions.c:151:7:tempCalibration	1
 ../utils/Src/functions.c:157:7:TempMeasure	1
 ../utils/Src/functions.c:168:7:combineLH	1
-../utils/Src/functions.c:172:8:calibrateAcc	5
-../utils/Src/functions.c:179:6:AccMeasure	1
+../utils/Src/functions.c:177:8:calibrateAcc	5
+../utils/Src/functions.c:184:6:AccMeasure	1
+../utils/Src/functions.c:215:7:getAccNorm	1
