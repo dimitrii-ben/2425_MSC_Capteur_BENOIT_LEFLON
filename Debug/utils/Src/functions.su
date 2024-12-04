@@ -8,3 +8,6 @@
 ../utils/Src/functions.c:136:6:getTempOffset	24	static
 ../utils/Src/functions.c:151:7:tempCalibration	24	static
 ../utils/Src/functions.c:157:7:TempMeasure	16	static
+../utils/Src/functions.c:168:7:combineLH	16	static
+../utils/Src/functions.c:172:7:calibrateAcc	16	static
+../utils/Src/functions.c:179:6:AccMeasure	40	static

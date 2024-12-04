@@ -160,3 +160,45 @@ float TempMeasure(){
 	printf("Calibrated Temperature: %f\r\n",calibrated_temperature);
 	return calibrated_temperature;
 }
+/*
+ * ACCELEROMETER
+ */
+
+
+short combineLH(int8_t regLowByte,int8_t regHighByte){
+	return (int16_t)((regHighByte << 8) | regLowByte);
+
+}
+short calibrateAcc(short accValue,short FS){
+	return accValue/(short)GET_SENS(FS);
+}
+/**@brief Measure the accelerometer value
+ * @param accel_table : A reserved memory space for the x,y,z value of the accelerometer
+ * @retval None
+ */
+void AccMeasure(uint8_t FS,double* accel_table){
+	uint8_t L_x,L_y,L_z,H_x,H_y,H_z;
+	int16_t raw_x,raw_y,raw_z;
+	int16_t x,y,z;
+	//x
+	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_XOUT_L, &L_x);
+	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_XOUT_H, &H_x);
+	//y
+	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_YOUT_L, &L_y);
+	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_YOUT_H, &H_y);
+	//z
+	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_ZOUT_L, &L_z);
+	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_ZOUT_H, &H_z);
+	//combining
+	raw_x = combineLH(L_x,H_x);
+	raw_y = combineLH(L_y,H_y);
+	raw_z = combineLH(L_z,H_z );
+	//calculating g
+	x= calibrateAcc(raw_x,FS);
+	y= calibrateAcc(raw_y, FS);
+	z= calibrateAcc(raw_z, FS);
+	//printf("[ACCEL_XOUT_L,ACCEL_XOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]\r\n",L_x,L_y,L_z,H_x,H_y,H_z);
+	//printf("raw_x=%d|-|raw_y=%d|-|raw_z=%d\r\n",raw_x,raw_y,raw_z);
+	printf("acc_X=%d|-|acc_Y=%d|-|acc_Z=%d\r\n",x,y,z);
+
+}
