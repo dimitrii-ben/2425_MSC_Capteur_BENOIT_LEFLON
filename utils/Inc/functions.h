@@ -67,7 +67,7 @@ float TempMeasure();
 /*
  * ACCELEROMETER
  */
-short  calibrateAcc(short  accValue,short FS);
+double  calibrateAcc(short  accValue,short FS);
 short combineLH(int8_t regHighByte,int8_t regLowByte);
 void AccMeasure(uint8_t,double*);
 extern void Error_Handler(void);

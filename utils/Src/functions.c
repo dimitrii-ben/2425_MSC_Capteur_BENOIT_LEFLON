@@ -169,8 +169,8 @@ short combineLH(int8_t regLowByte,int8_t regHighByte){
 	return (int16_t)((regHighByte << 8) | regLowByte);
 
 }
-short calibrateAcc(short accValue,short FS){
-	return accValue/(short)GET_SENS(FS);
+double calibrateAcc(short accValue,short FS){
+	return ((double)accValue/(double)GET_SENS(FS));
 }
 /**@brief Measure the accelerometer value
  * @param accel_table : A reserved memory space for the x,y,z value of the accelerometer
@@ -179,7 +179,7 @@ short calibrateAcc(short accValue,short FS){
 void AccMeasure(uint8_t FS,double* accel_table){
 	uint8_t L_x,L_y,L_z,H_x,H_y,H_z;
 	int16_t raw_x,raw_y,raw_z;
-	int16_t x,y,z;
+	double x,y,z;
 	//x
 	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_XOUT_L, &L_x);
 	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_XOUT_H, &H_x);
@@ -199,6 +199,6 @@ void AccMeasure(uint8_t FS,double* accel_table){
 	z= calibrateAcc(raw_z, FS);
 	//printf("[ACCEL_XOUT_L,ACCEL_XOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]\r\n",L_x,L_y,L_z,H_x,H_y,H_z);
 	//printf("raw_x=%d|-|raw_y=%d|-|raw_z=%d\r\n",raw_x,raw_y,raw_z);
-	printf("acc_X=%d|-|acc_Y=%d|-|acc_Z=%d\r\n",x,y,z);
+	printf("acc_X=%f|-|acc_Y=%f|-|acc_Z=%f\r\n",x,y,z);
 
 }
