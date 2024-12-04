@@ -135,9 +135,9 @@ uint16_t rawTempMeasure(){
  */
 void getTempOffset(int repetition){
 	if (RoomTemp_Offset<0){
-		uint16_t RoomTemp_Offset=0;
+		RoomTemp_Offset=0;
 		for(int i =0; i <repetition;i++){
-			RoomTemp_Offset+=rawTempMeasure();
+			RoomTemp_Offset+= (float)rawTempMeasure();
 		}
 		RoomTemp_Offset=RoomTemp_Offset/repetition;
 	}
@@ -148,9 +148,9 @@ void getTempOffset(int repetition){
  * @param I2C_Value
  * @retval TEMP_degC
  */
-uint16_t tempCalibration(uint16_t I2C_Value){
+float tempCalibration(uint16_t I2C_Value){
 	float TEMP_degC;
-	TEMP_degC = ((float)I2C_Value-RoomTemp_Offset)/(float)TEMP_SENSITIVITY + (float)TEMP_DATASHEET_OFFSET;
+	TEMP_degC = ((float)I2C_Value-RoomTemp_Offset)/TEMP_SENSITIVITY + TEMP_DATASHEET_OFFSET;
 	return TEMP_degC;
 }
 

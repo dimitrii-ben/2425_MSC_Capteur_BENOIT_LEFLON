@@ -35,7 +35,7 @@ void hardwareReset(uint8_t, uint8_t);
 void clockSelection();
 void InitSensors();
 uint16_t rawTempMeasure();
-uint16_t tempCalibration(uint16_t);
+float tempCalibration(uint16_t);
 void getTempOffset(int repetition);
 float TempMeasure();
 extern void Error_Handler(void);
