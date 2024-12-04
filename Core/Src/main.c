@@ -97,10 +97,11 @@ int main(void)
 	checkMPU9250Identity();
 	verifySensor();
 	clockSelection();
-	printf("Reading of the temperature...\r\n");
+	//printf("Reading of the temperature...\r\n");
 	// accel_table = {accel_x,accel_y,accel_z}
 	//for example
 	double accel_table[3] =  {0,0,0};
+	double gyro_table[3] =  {0,0,0};
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -109,8 +110,10 @@ int main(void)
 	{
 		//test_LEDs(50);
 		//TempMeasure();
-		AccMeasure(2,accel_table);
-		HAL_Delay(500);
+		//AccMeasure(accel_table);
+		GyroMeasure(gyro_table);
+		HAL_Delay(2000);
+
 		//loop();
 		/* USER CODE END WHILE */
 

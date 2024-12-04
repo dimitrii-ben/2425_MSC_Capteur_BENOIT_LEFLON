@@ -32,6 +32,9 @@
 #define TEMP_SENSITIVITY 333.87
 #define TEMP_INIT_AVG_REPETITION 10
 //ACCELEROMETER
+#define ACCELEROMETER_COMP 0
+#define ACC_FS_SEL_ADDR 0x1B
+#define ACC_FS_SEL_MASK 0x18
 //offset
 #define XA_OFFSET_H      0x77
 #define XA_OFFSET_L      0x78
@@ -48,12 +51,27 @@
 #define ACCEL_ZOUT_L     0x40
 //sensitivity macro
 // Define a table using macros
-#define GET_SENS(FS) (FS == 2 ? 16384 : \
-                        FS == 4 ? 8192 : \
-                        FS == 8 ? 4096 : \
-                        FS == 16 ? 2048 : \
+#define GET_ACC_SENS(FS_SEL) (FS_SEL == 0 ? 16384 : \
+                        FS_SEL == 1 ? 8192 : \
+                        FS_SEL == 2 ? 4096 : \
+                        FS_SEL == 3 ? 2048 : \
                         -1)  // Return -1 if key is invalid
 
+//GYROSCOPE
+#define GYROSCOPE_COMP 1
+#define GYRO_FS_SEL_ADDR 0x1B
+#define GYRO_XOUT_H      0x43
+#define GYRO_XOUT_L      0x44
+#define GYRO_YOUT_H      0x45
+#define GYRO_YOUT_L      0x46
+#define GYRO_ZOUT_H      0x47
+#define GYRO_ZOUT_L      0x48
+#define GET_GYRO_SENS(FS_SEL) (FS_SEL == 0 ? 131 : \
+                        FS_SEL == 1 ? 65.5 : \
+                        FS_SEL == 2 ? 32.8 : \
+                        FS_SEL == 3 ? 16.4 : \
+                        -1)  // Return -1 if key is invalid
+#define GYRO_FS_SEL_MASK 0x18
 //function definition
 void I2C_Write_Register(uint8_t, uint8_t, uint8_t);
 void I2C_Read_Register(uint8_t, uint8_t, uint8_t*);
@@ -64,12 +82,21 @@ uint16_t rawTempMeasure();
 float tempCalibration(uint16_t);
 void getTempOffset(int repetition);
 float TempMeasure();
-
+uint8_t getFS(uint8_t component);
+void componentMeasure(uint8_t current_component,double* component_table);
+short getSensitivity(uint8_t component);
+double calibrateValue(short accValue,double sensitivity);
+short combineLH(int8_t regHighByte,int8_t regLowByte);
+extern void Error_Handler(void);
+float getVectorNorm(double* vector_table);
 /*
  * ACCELEROMETER
  */
-double  calibrateAcc(short  accValue,short FS);
-short combineLH(int8_t regHighByte,int8_t regLowByte);
-void AccMeasure(uint8_t,double*);
-extern void Error_Handler(void);
+void AccMeasure(double* acc_table);
+/*
+ * GYROSCOPE
+ */
+void GyroMeasure(double*);
 #endif /* INC_FUNCTIONS_H_ */
+
+

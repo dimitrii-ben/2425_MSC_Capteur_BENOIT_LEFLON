@@ -8,7 +8,11 @@
 ../utils/Src/functions.c:136:6:getTempOffset	3
 ../utils/Src/functions.c:151:7:tempCalibration	1
 ../utils/Src/functions.c:157:7:TempMeasure	1
-../utils/Src/functions.c:168:7:combineLH	1
-../utils/Src/functions.c:177:8:calibrateAcc	5
-../utils/Src/functions.c:184:6:AccMeasure	1
-../utils/Src/functions.c:215:7:getAccNorm	1
+../utils/Src/functions.c:169:9:getFS	3
+../utils/Src/functions.c:183:7:getSensitivity	11
+../utils/Src/functions.c:197:7:combineLH	1
+../utils/Src/functions.c:205:8:calibrateValue	1
+../utils/Src/functions.c:212:6:componentMeasure	1
+../utils/Src/functions.c:243:7:getVectorNorm	1
+../utils/Src/functions.c:254:6:AccMeasure	1
+../utils/Src/functions.c:266:6:GyroMeasure	1

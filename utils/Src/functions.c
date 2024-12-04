@@ -160,30 +160,59 @@ float TempMeasure(){
 	printf("Calibrated Temperature: %f\r\n",calibrated_temperature);
 	return calibrated_temperature;
 }
-/*
- * ACCELEROMETER
+/**@brief Get FS (full scale) register value
+ * @param register_sel_mask current register map to acess __FS_SELL value
+ * @param config_addr current CONFIG_ADDR for the current component [Gyroscope,Accelerometer]
+ * @retval FS : full scale register value
  */
 
+uint8_t getFS(uint8_t component){
 
+	uint8_t config_reg_value;
+	if (component == GYROSCOPE_COMP){
+		I2C_Read_Register(MPU9250_ADDRESS, GYRO_FS_SEL_ADDR, &config_reg_value);
+		return (config_reg_value & GYRO_FS_SEL_MASK)>>3;
+	}
+	else if (component == ACCELEROMETER_COMP){
+		I2C_Read_Register(MPU9250_ADDRESS, ACC_FS_SEL_ADDR, &config_reg_value);
+		return (config_reg_value & ACC_FS_SEL_MASK)>>3;
+	}
+	return -1;
+
+}
+short getSensitivity(uint8_t component){
+	if (component == GYROSCOPE_COMP){
+		return GET_GYRO_SENS(getFS(component));
+	}
+	else if (component ==ACCELEROMETER_COMP){
+		return GET_ACC_SENS(getFS(component));
+	}
+	return -1;
+}
+/**@brief combine two 8 bits word (LSB and MSB)
+ * @param regLowByte : LSB
+ * @param regHighByte: MSB
+ * @retval short
+ */
 short combineLH(int8_t regLowByte,int8_t regHighByte){
 	return (int16_t)((regHighByte << 8) | regLowByte);
 
 }
-/**@brief Calibrate the I2C accelerometer received value
+/**@brief Calibrate the I2C accelerometer/gyrometer received value
  * @param accValue : the acceleration value (raw)
- * @param FS : Current full scale can take value in : [2,4,8,16]
  * @retval None
  */
-double calibrateAcc(short accValue,short FS){
-	return ((double)accValue/(double)GET_SENS(FS));
+double calibrateValue(short accValue,double sensitivity){
+	return ((double)accValue/sensitivity);
 }
-/**@brief Measure the accelerometer value
+/**@brief Measure the current component value
  * @param accel_table : A reserved memory space for the x,y,z value of the accelerometer
  * @retval None
  */
-void AccMeasure(uint8_t FS,double* accel_table){
+void componentMeasure(uint8_t current_component,double* component_table){
 	uint8_t L_x,L_y,L_z,H_x,H_y,H_z;
 	int16_t raw_x,raw_y,raw_z;
+	short current_sensitivity = getSensitivity(current_component);
 	double x,y,z;
 	//x
 	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_XOUT_L, &L_x);
@@ -194,24 +223,49 @@ void AccMeasure(uint8_t FS,double* accel_table){
 	//z
 	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_ZOUT_L, &L_z);
 	I2C_Read_Register(MPU9250_ADDRESS, ACCEL_ZOUT_H, &H_z);
-	//combining
+	//combining LSB and MSB
 	raw_x = combineLH(L_x,H_x);
 	raw_y = combineLH(L_y,H_y);
-	raw_z = combineLH(L_z,H_z );
-	//calculating g
-	x= calibrateAcc(raw_x,FS);
-	y= calibrateAcc(raw_y, FS);
-	z= calibrateAcc(raw_z, FS);
+	raw_z = combineLH(L_z,H_z);
+	//calibrating raw values
+	x= calibrateValue(raw_x,current_sensitivity);
+	y= calibrateValue(raw_y, current_sensitivity);
+	z= calibrateValue(raw_z, current_sensitivity);
 
-	accel_table[0]=x;
-	accel_table[1]=y;
-	accel_table[2]=z;
-	//printf("[ACCEL_XOUT_L,ACCEL_XOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]|-|[ACCEL_YOUT_L,ACCEL_YOUT_H]:[%d,%d]\r\n",L_x,L_y,L_z,H_x,H_y,H_z);
+	component_table[0]=x;
+	component_table[1]=y;
+	component_table[2]=z;
+	//printf("[XOUT_L,XOUT_H]:[%d,%d]|-|[YOUT_L,YOUT_H]:[%d,%d]|-|[YOUT_L,YOUT_H]:[%d,%d]\r\n",L_x,L_y,L_z,H_x,H_y,H_z);
 	//printf("raw_x=%d|-|raw_y=%d|-|raw_z=%d\r\n",raw_x,raw_y,raw_z);
-	printf("acc_X=%f|-|acc_Y=%f|-|acc_Z=%f\r\n",x,y,z);
+	printf("X=%f|-|Y=%f|-|Z=%f\r\n",x,y,z);
 
 }
-
-float getAccNorm(double* accel_table){
-	return sqrt(pow(accel_table[0],2)+pow(accel_table[1],2)+pow(accel_table[2],2));
+float getVectorNorm(double* vector_table){
+	return sqrt(pow(vector_table[0],2)+pow(vector_table[1],2)+pow(vector_table[2],2));
 }
+/*
+ * ACCELEROMETER
+ */
+
+/**@brief Measure the accelerometer value
+ * @param gyro_table : A reserved memory space for the x,y,z value of the accelerometer
+ * @retval None
+ */
+void AccMeasure(double* acc_table){
+	componentMeasure(ACCELEROMETER_COMP,acc_table);
+}
+
+/*
+ * GYROSCOPE
+ */
+
+/**@brief Measure the gyroscope value
+ * @param gyro_table : A reserved memory space for the x,y,z value of the gyroscope
+ * @retval None
+ */
+void GyroMeasure(double* gyro_table){
+	componentMeasure(GYROSCOPE_COMP,gyro_table);
+}
+
+
+
