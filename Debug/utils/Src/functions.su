@@ -1,7 +1,9 @@
-../utils/Src/functions.c:24:6:I2C_Write_Register	32	static
-../utils/Src/functions.c:45:6:I2C_Read_Register	24	static
-../utils/Src/functions.c:67:6:hardwareReset	24	static
-../utils/Src/functions.c:80:6:setDefaultValue	8	static
-../utils/Src/functions.c:91:6:clockSelection	8	static
-../utils/Src/functions.c:101:6:InitSensors	8	static
-../utils/Src/functions.c:114:6:TempMeasure	8	static
+../utils/Src/functions.c:25:6:I2C_Write_Register	32	static
+../utils/Src/functions.c:48:6:I2C_Read_Register	24	static
+../utils/Src/functions.c:70:6:hardwareReset	24	static
+../utils/Src/functions.c:83:6:setDefaultValue	8	static
+../utils/Src/functions.c:95:6:clockSelection	8	static
+../utils/Src/functions.c:105:6:InitSensors	8	static
+../utils/Src/functions.c:119:10:TempMeasure	16	static
+../utils/Src/functions.c:137:6:getTempOffset	24	static
+../utils/Src/functions.c:152:10:tempCalibration	24	static

@@ -25,16 +25,17 @@
 #define CLKSEL_VALUE 0x01
 #define TEMP_OUT_H 0x41
 #define TEMP_OUT_L 0x42
-
+#define TEMP_DATASHEET_OFFSET 21
 #define RESET_VALUE 0
-
-
+#define TEMP_SENSITIVITY 333.87
+#define TEMP_INIT_AVG_REPETITION 10
 void I2C_Write_Register(uint8_t, uint8_t, uint8_t);
 void I2C_Read_Register(uint8_t, uint8_t, uint8_t*);
 void hardwareReset(uint8_t, uint8_t);
 void clockSelection();
 void InitSensors();
-void TempMeasure();
-
+uint16_t TempMeasure();
+uint16_t tempCalibration(uint16_t);
+void getTempOffset(int repetition);
 extern void Error_Handler(void);
 #endif /* INC_FUNCTIONS_H_ */

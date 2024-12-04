@@ -104,7 +104,7 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		test_LEDs(50);
+		//test_LEDs(50);
 		TempMeasure();
 		HAL_Delay(500);
 		//loop();

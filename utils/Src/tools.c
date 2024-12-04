@@ -33,10 +33,10 @@ void loop(){
 }
 
 
-/**
- * @brief Make PA5 LED blink.
- * @param delay : current delay
+/**@brief Make PA5 LED blink.
+ * @param delay current delay
  * @retval HAL status
+ *
  */
 void test_LEDs(int delay){
 	for(;;){
@@ -46,10 +46,10 @@ void test_LEDs(int delay){
 
 }
 
-/**
- * @brief Verify the the sensors available on I2C bus
+/**@brief Verify the the sensors available on I2C bus
  * @param None
- * @retval
+ * @retval None
+ *
  */
 void verifySensor(){
 	for (uint8_t i=0x00;i<0xFF;i++){
@@ -65,10 +65,10 @@ void verifySensor(){
 }
 
 
-/**
- * @brief Verify the identity of the MPU-950 sensor
+/**@brief Verify the identity of the MPU-950 sensor
  * @param None
  * @retval uint8_t is_sensor : if 1 the sensor is detected 0 otherwise
+ *
  */
 uint8_t checkMPU9250Identity() {
 	uint8_t who_am_i = 0; // Variable to store the read value
