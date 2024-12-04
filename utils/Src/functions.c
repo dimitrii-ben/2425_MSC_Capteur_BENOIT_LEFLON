@@ -116,7 +116,7 @@ void InitSensors(){
  * @retval None
  *
  */
-uint16_t TempMeasure(){
+uint16_t rawTempMeasure(){
 	uint8_t temperatureLowByte;
 	uint8_t temperatureHighByte;
 	uint16_t temperatureRaw;
@@ -131,14 +131,13 @@ uint16_t TempMeasure(){
 }
 /**@brief Compute the temperature offset, through an average
  * @param repetition : the number of petition
- * @retval temp_
+ * @retval RoomTemp_Offset
  */
-
 void getTempOffset(int repetition){
 	if (RoomTemp_Offset<0){
 		uint16_t RoomTemp_Offset=0;
 		for(int i =0; i <repetition;i++){
-			RoomTemp_Offset+=TempMeasure();
+			RoomTemp_Offset+=rawTempMeasure();
 		}
 		RoomTemp_Offset=RoomTemp_Offset/repetition;
 	}
@@ -151,7 +150,13 @@ void getTempOffset(int repetition){
  */
 uint16_t tempCalibration(uint16_t I2C_Value){
 	float TEMP_degC;
-	TEMP_degC = (I2C_Value-RoomTemp_Offset)/TEMP_SENSITIVITY + TEMP_DATASHEET_OFFSET;
+	TEMP_degC = ((float)I2C_Value-RoomTemp_Offset)/(float)TEMP_SENSITIVITY + (float)TEMP_DATASHEET_OFFSET;
 	return TEMP_degC;
 }
 
+float TempMeasure(){
+	uint16_t temp = rawTempMeasure();
+	float calibrated_temperature = tempCalibration(temp);
+	printf("Calibrated Temperature: %f\r\n",calibrated_temperature);
+	return calibrated_temperature;
+}

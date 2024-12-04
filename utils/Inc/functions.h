@@ -34,8 +34,9 @@ void I2C_Read_Register(uint8_t, uint8_t, uint8_t*);
 void hardwareReset(uint8_t, uint8_t);
 void clockSelection();
 void InitSensors();
-uint16_t TempMeasure();
+uint16_t rawTempMeasure();
 uint16_t tempCalibration(uint16_t);
 void getTempOffset(int repetition);
+float TempMeasure();
 extern void Error_Handler(void);
 #endif /* INC_FUNCTIONS_H_ */
