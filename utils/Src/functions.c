@@ -267,5 +267,23 @@ void GyroMeasure(double* gyro_table){
 	componentMeasure(GYROSCOPE_COMP,gyro_table);
 }
 
+/*
+ *  MAGNETOMETER
+ */
+// pour communiquer avec le magnetometre AK il faut configurer le bus auxiliere I2C_SL0 il y a trois etape pour effectuer une lecture/une ecriture:
+//[1]Configurer l'adresse I2C_SLV0_ADDR courante (le composant qu'on va vouloir utiliser lors du processus ici pour le magnetometre on communiquera avec l'AK8963)
+//[2]Configurer l'adresse I2C_SLV0_REG courante (le registre qu'on va vouloir ecrire/lire lors du processus, par exemple WHO_AM_I)
+//[3]Configurer l'adresse I2C_SLV0_CTRL, pour gerer les acces ou l'on pourra moduler la longueur des mots a lire
+void ConfigureI2CSlave(I2C_HandleTypeDef *hi2c, uint8_t slave_addr, uint8_t is_read) {
+    uint8_t value = (slave_addr << 1) | (is_read ? 1 : 0);  // Adresse avec bit R/W
+    I2C_Write_Register(hi2c, MPU9250_ADDRESS, I2C_SLV0_ADDR, value);
+}
 
+void SetSlaveRegister(I2C_HandleTypeDef *hi2c, uint8_t reg_addr) {
+    I2C_Write_Register(hi2c, MPU9250_ADDRESS, I2C_SLV0_REG, reg_addr);
+}
 
+void ConfigureSlaveControl(I2C_HandleTypeDef *hi2c, uint8_t data_length) {
+    uint8_t value = 0x80 | (data_length & 0x0F);  // Activer et définir la longueur
+    I2C_Write_Register(hi2c, MPU9250_ADDRESS, I2C_SLV0_CTRL, value);
+}

@@ -72,6 +72,33 @@
                         FS_SEL == 3 ? 16.4 : \
                         -1)  // Return -1 if key is invalid
 #define GYRO_FS_SEL_MASK 0x18
+/***************************************************
+ *      REGISTER MAP MAGNETOMETER AK8963
+ **************************************************/
+
+#define WHO_AM_I_AK8963  0x00 // should return 0x48
+#define INFO             0x01
+#define AK8963_ST1       0x02  // data ready status bit 0
+#define AK8963_XOUT_L    0x03  // data
+#define AK8963_XOUT_H    0x04
+#define AK8963_YOUT_L    0x05
+#define AK8963_YOUT_H    0x06
+#define AK8963_ZOUT_L    0x07
+#define AK8963_ZOUT_H    0x08
+#define AK8963_ST2       0x09  // Data overflow bit 3 and data read error status bit 2
+#define AK8963_CNTL      0x0A  // Power down (0000), single-measurement (0001), self-test (1000) and Fuse ROM (1111) modes on bits 3:0
+#define AK8963_ASTC      0x0C  // Self test control
+#define AK8963_I2CDIS    0x0F  // I2C disable
+#define AK8963_ASAX      0x10  // Fuse ROM x-axis sensitivity adjustment value
+#define AK8963_ASAY      0x11  // Fuse ROM y-axis sensitivity adjustment value
+#define AK8963_ASAZ      0x12  // Fuse ROM z-axis sensitivity adjustment value
+#define AK_ADD 			0x18
+
+//
+#define I2C_SLV0_ADDR    0x25
+#define I2C_SLV0_REG     0x26
+#define I2C_SLV0_CTRL    0x27
+#define I2C_SLV0_DO      0x63
 //function definition
 void I2C_Write_Register(uint8_t, uint8_t, uint8_t);
 void I2C_Read_Register(uint8_t, uint8_t, uint8_t*);
@@ -97,6 +124,13 @@ void AccMeasure(double* acc_table);
  * GYROSCOPE
  */
 void GyroMeasure(double*);
+
+/*
+ * MAGNETOMETER
+ */
+void ConfigureI2CSlave(I2C_HandleTypeDef *hi2c, uint8_t slave_addr, uint8_t is_read);
+void SetSlaveRegister(I2C_HandleTypeDef *hi2c, uint8_t reg_addr);
+void ConfigureSlaveControl(I2C_HandleTypeDef *hi2c, uint8_t data_length);
 #endif /* INC_FUNCTIONS_H_ */
 
 
