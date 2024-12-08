@@ -274,16 +274,60 @@ void GyroMeasure(double* gyro_table){
 //[1]Configurer l'adresse I2C_SLV0_ADDR courante (le composant qu'on va vouloir utiliser lors du processus ici pour le magnetometre on communiquera avec l'AK8963)
 //[2]Configurer l'adresse I2C_SLV0_REG courante (le registre qu'on va vouloir ecrire/lire lors du processus, par exemple WHO_AM_I)
 //[3]Configurer l'adresse I2C_SLV0_CTRL, pour gerer les acces ou l'on pourra moduler la longueur des mots a lire
-void ConfigureI2CSlave(I2C_HandleTypeDef *hi2c, uint8_t slave_addr, uint8_t is_read) {
-    uint8_t value = (slave_addr << 1) | (is_read ? 1 : 0);  // Adresse avec bit R/W
-    I2C_Write_Register(hi2c, MPU9250_ADDRESS, I2C_SLV0_ADDR, value);
+void ConfigureI2CSlave(uint8_t slave_addr, uint8_t is_read) {
+	uint8_t value = (slave_addr << 1) | (is_read ? 1 : 0);  // Adresse avec bit R/W (LSB)
+	I2C_Write_Register(MPU9250_ADDRESS, I2C_SLV0_ADDR, value);
 }
 
-void SetSlaveRegister(I2C_HandleTypeDef *hi2c, uint8_t reg_addr) {
-    I2C_Write_Register(hi2c, MPU9250_ADDRESS, I2C_SLV0_REG, reg_addr);
+void SetSlaveRegister(uint8_t reg_addr) {
+	I2C_Write_Register(MPU9250_ADDRESS, I2C_SLV0_REG, reg_addr);
 }
 
-void ConfigureSlaveControl(I2C_HandleTypeDef *hi2c, uint8_t data_length) {
-    uint8_t value = 0x80 | (data_length & 0x0F);  // Activer et définir la longueur
-    I2C_Write_Register(hi2c, MPU9250_ADDRESS, I2C_SLV0_CTRL, value);
+void ConfigureSlaveControl(uint8_t data_length) {
+	uint8_t value = 0x80 | (data_length & 0x0F);  // Activer et définir la longueur
+	I2C_Write_Register(MPU9250_ADDRESS, I2C_SLV0_CTRL, value);
 }
+
+uint8_t ReadMagnetometerWhoAmI() {
+	// Configurer l'accès au magnétomètre
+	ConfigureI2CSlave(AK8963_ADDR, 1);        // Adresse AK8963 en mode lecture
+	SetSlaveRegister(WHO_AM_I_AK8963);        // Registre WHO_AM_I
+	ConfigureSlaveControl(1);          // Lire 1 octet
+
+	// Lire le résultat via le registre du MPU-9250
+	uint8_t who_am_i = 0;
+	I2C_Read_Register(MPU9250_ADDRESS, I2C_SLV0_DO, &who_am_i);  // Lecture depuis I2C_SLV0_DO
+	return who_am_i;
+}
+//CNTL1 REG CONFIGURATION
+void ConfigureMagnetometer(I2C_HandleTypeDef *hi2c) {
+    uint8_t config = 0x16;  // Continuous Measurement Mode 2, 16-bit output
+    I2C_Write_Register(AK8963_ADDR << 1, AK8963_CNTL, config);
+    HAL_Delay(10);  // Délai pour laisser le magnétomètre s'initialiser
+}
+
+// Fonction pour lire les données magnétiques ajustées
+void MagMeasure(I2C_HandleTypeDef *hi2c, double *mag_data) {
+    uint8_t raw_data[6] = {0};     // Données brutes magnétiques (6 octets)
+    uint8_t asa[3] = {0};          // Valeurs d'ajustement de sensibilité (ASAX, ASAY, ASAZ)
+    int16_t raw_magnetic[3] = {0}; // Données brutes magnétiques en 16 bits
+
+    // Lire les valeurs ASA (ajustement de sensibilité)
+    HAL_I2C_Mem_Read(hi2c, AK8963_ADDR << 1, AK8963_ASAX, 1, &asa[0], 1, HAL_MAX_DELAY);
+    HAL_I2C_Mem_Read(hi2c, AK8963_ADDR << 1, AK8963_ASAY, 1, &asa[1], 1, HAL_MAX_DELAY);
+    HAL_I2C_Mem_Read(hi2c, AK8963_ADDR << 1, AK8963_ASAZ, 1, &asa[2], 1, HAL_MAX_DELAY);
+
+    // Lire les données brutes magnétiques (6 octets consécutifs)
+    HAL_I2C_Mem_Read(hi2c, AK8963_ADDR << 1, AK8963_XOUT_L, 1, raw_data, 6, HAL_MAX_DELAY);
+
+    // Combiner les octets pour obtenir les valeurs brutes par axe
+    raw_magnetic[0] = (int16_t)((raw_data[1] << 8) | raw_data[0]);  // Axe X
+    raw_magnetic[1] = (int16_t)((raw_data[3] << 8) | raw_data[2]);  // Axe Y
+    raw_magnetic[2] = (int16_t)((raw_data[5] << 8) | raw_data[4]);  // Axe Z
+
+    // Ajuster les données brutes en utilisant les valeurs ASA
+    for (int i = 0; i < 3; i++) {
+        mag_data[i] = raw_magnetic[i] * (((asa[i] - 128) * 0.5 / 128) + 1);
+    }
+}
+

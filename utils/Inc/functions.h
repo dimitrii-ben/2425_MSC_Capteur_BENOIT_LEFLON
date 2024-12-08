@@ -72,6 +72,8 @@
                         FS_SEL == 3 ? 16.4 : \
                         -1)  // Return -1 if key is invalid
 #define GYRO_FS_SEL_MASK 0x18
+// MPU TO MAGNETOMETER
+#define AK8963_ADDR 0x0C //in reading mode
 /***************************************************
  *      REGISTER MAP MAGNETOMETER AK8963
  **************************************************/
@@ -128,9 +130,11 @@ void GyroMeasure(double*);
 /*
  * MAGNETOMETER
  */
-void ConfigureI2CSlave(I2C_HandleTypeDef *hi2c, uint8_t slave_addr, uint8_t is_read);
-void SetSlaveRegister(I2C_HandleTypeDef *hi2c, uint8_t reg_addr);
-void ConfigureSlaveControl(I2C_HandleTypeDef *hi2c, uint8_t data_length);
+void ConfigureI2CSlave(uint8_t slave_addr, uint8_t is_read);
+void SetSlaveRegister(uint8_t reg_addr);
+void ConfigureSlaveControl(uint8_t data_length);
+uint8_t ReadMagnetometerWhoAmI();
+void MagMeasure(I2C_HandleTypeDef *hi2c, double *mag_data);
 #endif /* INC_FUNCTIONS_H_ */
 
 

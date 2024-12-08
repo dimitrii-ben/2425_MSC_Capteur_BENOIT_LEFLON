@@ -16,3 +16,9 @@
 ../utils/Src/functions.c:243:7:getVectorNorm	1
 ../utils/Src/functions.c:254:6:AccMeasure	1
 ../utils/Src/functions.c:266:6:GyroMeasure	1
+../utils/Src/functions.c:277:6:ConfigureI2CSlave	1
+../utils/Src/functions.c:282:6:SetSlaveRegister	1
+../utils/Src/functions.c:286:6:ConfigureSlaveControl	1
+../utils/Src/functions.c:291:9:ReadMagnetometerWhoAmI	1
+../utils/Src/functions.c:303:6:ConfigureMagnetometer	1
+../utils/Src/functions.c:310:6:MagMeasure	2

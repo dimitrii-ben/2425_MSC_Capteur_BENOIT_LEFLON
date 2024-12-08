@@ -7,45 +7,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00005ac0  080001e0  080001e0  000011e0  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       0000026c  08005ca0  08005ca0  00006ca0  2**2
+  2 .rodata       00000270  08005ca0  08005ca0  00006ca0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08005f0c  08005f0c  00007078  2**0
+  3 .ARM.extab    00000000  08005f10  08005f10  00007078  2**0
                   CONTENTS
-  4 .ARM          00000008  08005f0c  08005f0c  00006f0c  2**2
+  4 .ARM          00000008  08005f10  08005f10  00006f10  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08005f14  08005f14  00007078  2**0
+  5 .preinit_array 00000000  08005f18  08005f18  00007078  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08005f14  08005f14  00006f14  2**2
+  6 .init_array   00000004  08005f18  08005f18  00006f18  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  08005f18  08005f18  00006f18  2**2
+  7 .fini_array   00000004  08005f1c  08005f1c  00006f1c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000078  20000000  08005f1c  00007000  2**2
+  8 .data         00000078  20000000  08005f20  00007000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000028c  20000078  08005f94  00007078  2**2
+  9 .bss          0000028c  20000078  08005f98  00007078  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  20000304  08005f94  00007304  2**0
+ 10 ._user_heap_stack 00000604  20000304  08005f98  00007304  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00007078  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00011b5f  00000000  00000000  000070a8  2**0
+ 12 .debug_info   00011d32  00000000  00000000  000070a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00002ac7  00000000  00000000  00018c07  2**0
+ 13 .debug_abbrev 00002b12  00000000  00000000  00018dda  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000e60  00000000  00000000  0001b6d0  2**3
+ 14 .debug_aranges 00000e90  00000000  00000000  0001b8f0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00000b06  00000000  00000000  0001c530  2**0
+ 15 .debug_rnglists 00000b2b  00000000  00000000  0001c780  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001f4c1  00000000  00000000  0001d036  2**0
+ 16 .debug_macro  0001f545  00000000  00000000  0001d2ab  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00013ce0  00000000  00000000  0003c4f7  2**0
+ 17 .debug_line   00013e2f  00000000  00000000  0003c7f0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000bc44b  00000000  00000000  000501d7  2**0
+ 18 .debug_str    000bc67e  00000000  00000000  0005061f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0010c622  2**0
+ 19 .comment      00000043  00000000  00000000  0010cc9d  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00004270  00000000  00000000  0010c668  2**2
+ 20 .debug_frame  00004350  00000000  00000000  0010cce0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000009b  00000000  00000000  001108d8  2**0
+ 21 .debug_line_str 0000009b  00000000  00000000  00111030  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2417,7 +2417,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8001478:	20008000 	.word	0x20008000
  800147c:	20000000 	.word	0x20000000
  8001480:	20000078 	.word	0x20000078
- 8001484:	08005f1c 	.word	0x08005f1c
+ 8001484:	08005f20 	.word	0x08005f20
  8001488:	20000078 	.word	0x20000078
  800148c:	20000304 	.word	0x20000304
 
@@ -6108,7 +6108,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8003524:	40022000 	.word	0x40022000
  8003528:	40021000 	.word	0x40021000
  800352c:	04c4b400 	.word	0x04c4b400
- 8003530:	08005e98 	.word	0x08005e98
+ 8003530:	08005e9c 	.word	0x08005e9c
  8003534:	20000000 	.word	0x20000000
  8003538:	20000004 	.word	0x20000004
 
@@ -6223,7 +6223,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8003638:	4618      	mov	r0, r3
  800363a:	bd80      	pop	{r7, pc}
  800363c:	40021000 	.word	0x40021000
- 8003640:	08005ea8 	.word	0x08005ea8
+ 8003640:	08005eac 	.word	0x08005eac
 
 08003644 <HAL_RCC_GetPCLK2Freq>:
  8003644:	b580      	push	{r7, lr}
@@ -6241,7 +6241,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8003664:	4618      	mov	r0, r3
  8003666:	bd80      	pop	{r7, pc}
  8003668:	40021000 	.word	0x40021000
- 800366c:	08005ea8 	.word	0x08005ea8
+ 800366c:	08005eac 	.word	0x08005eac
 
 08003670 <RCC_GetSysClockFreqFromPLLSource>:
  8003670:	b480      	push	{r7}
@@ -7449,7 +7449,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8004220:	46bd      	mov	sp, r7
  8004222:	e8bd 8fb0 	ldmia.w	sp!, {r4, r5, r7, r8, r9, sl, fp, pc}
  8004226:	bf00      	nop
- 8004228:	08005eb0 	.word	0x08005eb0
+ 8004228:	08005eb4 	.word	0x08005eb4
  800422c:	00f42400 	.word	0x00f42400
 
 08004230 <UART_AdvFeatureConfig>:
@@ -8160,8 +8160,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8004864:	f85d 7b04 	ldr.w	r7, [sp], #4
  8004868:	4770      	bx	lr
  800486a:	bf00      	nop
- 800486c:	08005ec8 	.word	0x08005ec8
- 8004870:	08005ed0 	.word	0x08005ed0
+ 800486c:	08005ecc 	.word	0x08005ecc
+ 8004870:	08005ed4 	.word	0x08005ed4
 
 08004874 <I2C_Write_Register>:
  * @param value value to write in the register
@@ -8743,7 +8743,7 @@ void setup() {
  8004c90:	bdb0      	pop	{r4, r5, r7, pc}
  8004c92:	bf00      	nop
  8004c94:	20000184 	.word	0x20000184
- 8004c98:	08005db0 	.word	0x08005db0
+ 8004c98:	08005db4 	.word	0x08005db4
  8004c9c:	2000000c 	.word	0x2000000c
  8004ca0:	200000ec 	.word	0x200000ec
 
@@ -8814,8 +8814,8 @@ void verifySensor(){
  8004d04:	bd80      	pop	{r7, pc}
  8004d06:	bf00      	nop
  8004d08:	20000094 	.word	0x20000094
- 8004d0c:	08005dd4 	.word	0x08005dd4
- 8004d10:	08005e0c 	.word	0x08005e0c
+ 8004d0c:	08005dd8 	.word	0x08005dd8
+ 8004d10:	08005e10 	.word	0x08005e10
 
 08004d14 <checkMPU9250Identity>:
 /**@brief Verify the identity of the MPU-950 sensor
@@ -8870,8 +8870,8 @@ uint8_t checkMPU9250Identity() {
  8004d5c:	46bd      	mov	sp, r7
  8004d5e:	bd80      	pop	{r7, pc}
  8004d60:	20000094 	.word	0x20000094
- 8004d64:	08005e48 	.word	0x08005e48
- 8004d68:	08005e78 	.word	0x08005e78
+ 8004d64:	08005e4c 	.word	0x08005e4c
+ 8004d68:	08005e7c 	.word	0x08005e7c
 
 08004d6c <std>:
  8004d6c:	2300      	movs	r3, #0
@@ -9444,10 +9444,10 @@ uint8_t checkMPU9250Identity() {
  800525a:	4798      	blx	r3
  800525c:	3601      	adds	r6, #1
  800525e:	e7f2      	b.n	8005246 <__libc_init_array+0x1e>
- 8005260:	08005f14 	.word	0x08005f14
- 8005264:	08005f14 	.word	0x08005f14
- 8005268:	08005f14 	.word	0x08005f14
- 800526c:	08005f18 	.word	0x08005f18
+ 8005260:	08005f18 	.word	0x08005f18
+ 8005264:	08005f18 	.word	0x08005f18
+ 8005268:	08005f18 	.word	0x08005f18
+ 800526c:	08005f1c 	.word	0x08005f1c
 
 08005270 <__retarget_lock_init_recursive>:
  8005270:	4770      	bx	lr
@@ -9946,11 +9946,11 @@ uint8_t checkMPU9250Identity() {
  80056d0:	4630      	mov	r0, r6
  80056d2:	f000 f879 	bl	80057c8 <_printf_i>
  80056d6:	e7e4      	b.n	80056a2 <_vfiprintf_r+0x1e6>
- 80056d8:	08005ed8 	.word	0x08005ed8
- 80056dc:	08005ee2 	.word	0x08005ee2
+ 80056d8:	08005edc 	.word	0x08005edc
+ 80056dc:	08005ee6 	.word	0x08005ee6
  80056e0:	00000000 	.word	0x00000000
  80056e4:	08005497 	.word	0x08005497
- 80056e8:	08005ede 	.word	0x08005ede
+ 80056e8:	08005ee2 	.word	0x08005ee2
 
 080056ec <_printf_common>:
  80056ec:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -10281,8 +10281,8 @@ uint8_t checkMPU9250Identity() {
  80059f8:	f104 0619 	add.w	r6, r4, #25
  80059fc:	e7f5      	b.n	80059ea <_printf_i+0x222>
  80059fe:	bf00      	nop
- 8005a00:	08005ee9 	.word	0x08005ee9
- 8005a04:	08005efa 	.word	0x08005efa
+ 8005a00:	08005eed 	.word	0x08005eed
+ 8005a04:	08005efe 	.word	0x08005efe
 
 08005a08 <__sflush_r>:
  8005a08:	f9b1 200c 	ldrsh.w	r2, [r1, #12]
